@@ -1,0 +1,23 @@
+use std::fs::File;
+use std::io::{self, Read};
+
+fn main() -> io::Result<()> {
+    let mut file = File::open("example.txt")?;
+    let mut buffer = vec![0; 256];
+
+    loop {
+        let bytes_read = file.read(&mut buffer)?;
+        if bytes_read == 0 {
+            // End of file reached
+            break;
+        }
+
+        // Process the data in the buffer
+        println!("Read {} bytes", bytes_read);
+    }
+
+    // Print the contents of the buffer
+    println!("Buffer contents: {:?}", buffer);
+
+    Ok(())
+}
